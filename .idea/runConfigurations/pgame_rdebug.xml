@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="pgame_rdebug" type="PhpRemoteDebugRunConfigurationType" factoryName="PHP Remote Debug" server_name="pgame_debug" session_id="dbgp">
+    <method />
+  </configuration>
+</component>
