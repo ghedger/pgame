@@ -71,7 +71,7 @@ class PGameController extends Controller
                     "vanquished" => $computerChoice
                 )
             );
-        
+
         if (!$eval) {
             if ($computerChoice != $playerChoice) {
                 return GC::RESULT_LOSS;
@@ -129,58 +129,46 @@ class PGameController extends Controller
     }
 
     /**
+     * @Route("/pgame")
+     */
+    public function start()
+    {
+        return $this->playRound(-1);
+    }
+
+    /**
      * @Route("/pgame/{choice}")
      */
-    public function playRound1($choice)
+    public function playRound($choice)
     {
         $playerId = 0;          // TODO
-        $playerChoice = $choice;
 
+        // Populate the names of the signs ("rock", "paper", etc.) from the ORM
         $signTab = $this->getSigns();
-        $playerChoiceString = $signTab[$choice];
 
-        // TODO: Seed the pseudorandom number generator.
-        $computerChoice = mt_rand(0, 4);
-        $computerChoiceString = $signTab[$computerChoice];
+        $playerChoiceString = $computerChoiceString = $winnerString = '';
 
-        // Create a record of this game
-        $this->createLogEntry($playerId, $playerChoice, $computerChoice);
+        // On the first round, there will be no choice and start() will pass in a -1.
+        if ($choice >= 0 && $choice < count($signTab)) {
+            $playerChoice = $choice;
 
-        // Determine who won
-        $winnerString = $this->getResultString($this->evaluateChoices($playerChoice, $computerChoice));
+            $playerChoiceString = $signTab[$choice];
+
+            // TODO: Seed the pseudorandom number generator.
+            $computerChoice = mt_rand(0, 4);
+            $computerChoiceString = $signTab[$computerChoice];
+
+            // Create a record of this game
+            $this->createLogEntry($playerId, $playerChoice, $computerChoice);
+
+            // Determine who won
+            $winnerString = $this->getResultString($this->evaluateChoices($playerChoice, $computerChoice));
+        }
 
         // Render the output page via Twig and exit
         return $this->render('pgame/play.html.twig', array(
             'computerChoice' => $computerChoiceString,
             'playerChoice' => $playerChoiceString,
-            'winner' => $winnerString,
-        ));
-    }
-
-
-    /**
-     * @Route("/pgame")
-     */
-    public function playRound()
-    {
-        $playerId = 0;          // TODO
-        $playerChoice = 0;      // TODO
-
-        $signTab = $this->getSigns();
-
-        // TODO: Seed the pseudorandom number generator.
-        $computerChoice = mt_rand(0, 4);
-        $signString = $signTab[$computerChoice];
-
-        // Create a record of this game
-        $this->createLogEntry($playerId, $playerChoice, $computerChoice);
-
-        // Determine who won
-        $winnerString = $this->getResultString($this->evaluateChoices($playerChoice, $computerChoice));
-
-        // Render the output page via Twig and exit
-        return $this->render('pgame/play.html.twig', array(
-            'sign' => $signString,
             'winner' => $winnerString,
         ));
     }

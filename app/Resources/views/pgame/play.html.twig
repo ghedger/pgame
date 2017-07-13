@@ -8,9 +8,9 @@
 </head>
 <body>
 {% block body %}
-    <noscript>This WebApp <i>will not run</i> without JavaScript enabled.  Turn off your script blocker</noscript>
+    <noscript>This WebApp <i>will not run</i> without JavaScript enabled. Turn off your script blocker</noscript>
     <p>
-        Use the number keys to choose.
+        Use the regular number keys to choose.
     </p>
     <ol>
         <li>Rock</li>
@@ -18,14 +18,12 @@
         <li>Scissors</li>
         <li>Spock</li>
         <li>Lizard</li>
-
     </ol>
-    <h1>You picked <i>{{ playerChoice }}</i></h1>
-    <h1>The computer picked <i>{{ computerChoice }}</i></h1>
-    <h1>Result: {{ winner }}</h1>
-    <p>
-
-    </p>
+    {% if (playerChoice != '') %}
+        <h1>You picked <i>{{ playerChoice }}</i></h1>
+        <h1>The computer picked <i>{{ computerChoice }}</i></h1>
+        <h1>Result: {{ winner }}</h1>
+    {% endif %}
 {% endblock %}
 {% block javascripts %}
     {% javascripts '@AppBundle/Resources/public/js/*' %}
