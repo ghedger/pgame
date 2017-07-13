@@ -2,13 +2,14 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>{% block title %}RockPaperScisscorsSpockLizard Probability Game{% endblock %}</title>
+    <title>{% block title %}RockPaperScissorsSpockLizard Probability Game{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body>
 {% block body %}
-    <noscript>This WebApp <i>will not run</i> without JavaScript enabled. Turn off your script blocker</noscript>
+    <h1>Rock/Paper/Scissors/Spock/Lizard</h1>
+    <noscript>This WebApp <i>will not run</i> without JavaScript enabled. Turn off your script blocker.</noscript>
     <p>
         Use the regular number keys to choose.
     </p>
@@ -20,10 +21,15 @@
         <li>Lizard</li>
     </ol>
     {% if (playerChoice != '') %}
-        <h1>You picked <i>{{ playerChoice }}</i></h1>
-        <h1>The computer picked <i>{{ computerChoice }}</i></h1>
-        <h1>Result: {{ winner }}</h1>
+        <h2>You picked <i>{{ playerChoice }}</i></h2>
+        <h2>The computer picked <i>{{ computerChoice }}</i></h2>
+        <h2>Result: {{ winner }}</h2>
     {% endif %}
+    <span></span>
+    <h1>
+        Statistics
+    </h1>
+
 {% endblock %}
 {% block javascripts %}
     {% javascripts '@AppBundle/Resources/public/js/*' %}
