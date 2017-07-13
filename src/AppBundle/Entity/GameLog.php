@@ -6,6 +6,7 @@
  * Time: 3:52 PM
  */
 // src/AppBundle/Entity/GameLog.php
+
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -13,6 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="GameLogRepository")
  * @ORM\Table(name="gamelog")
+ * @package AppBundle\Entity
+ *
  * GPH NOTE: Table name is optional.  I prefer to explicate the name in the database.
  */
 class GameLog

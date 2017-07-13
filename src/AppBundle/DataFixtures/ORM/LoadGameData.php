@@ -1,20 +1,21 @@
 <?php
-// src/AppBundle/DataFixtures/ORM/LoadUserData.php
 /**
  * Created by PhpStorm.
  * User: ghedger
  * Date: 7/12/17
  * Time: 4:10 PM
  */
+// src/AppBundle/DataFixtures/ORM/LoadGameData.php
 
 namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use AppBundle\Entity\Evaluation;
-use AppBundle\Entity\GameConstants as GC;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Psr\Log\LoggerInterface;
+use AppBundle\Entity\GameConstants as GC;
+use AppBundle\Entity\Evaluation;
+use AppBundle\Entity\Sign;
 
 /**
  * Class LoadUserData
@@ -29,7 +30,32 @@ use Psr\Log\LoggerInterface;
  */
 class LoadGameData implements FixtureInterface
 {
-    public function load(ObjectManager $manager)
+    /**
+     * @param ObjectManager $manager
+     */
+    private function loadSigns(ObjectManager $manager)
+    {
+        try {
+            // i serves as the index to the table.  We will populate the signs in a simple lookup table and
+            // associate the ids with the names.
+            $i = 0;
+            foreach (GC::$names as $name) {
+                $sign = new Sign();
+                $sign->setId($i)->setName($name);
+                $manager->persist($sign);
+                $i++;
+            }
+        } catch (Exception $e) {
+            // Handle an exception and print a rudimentary error with enough info to get us close to the root.
+            $logger = new LoggerInterface();
+            $logger->error($e->getFile() . ' ' . $e->getLine() . ' ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * @param ObjectManager $manager
+     */
+    private function loadEval(ObjectManager $manager)
     {
         // This table holds the win/loss rules for the game.  Format:
         //
@@ -67,5 +93,14 @@ class LoadGameData implements FixtureInterface
             $logger->error($e->getFile() . ' ' . $e->getLine() . ' ' . $e->getMessage());
         }
         $manager->flush();
+    }
+
+    /**
+     * @param ObjectManager $manager
+     */
+    public function load(ObjectManager $manager)
+    {
+        $this->loadSigns($manager);
+        $this->loadEval($manager);
     }
 }

@@ -16,8 +16,9 @@ The web page must present the following:
     - A way for the player to input his choice.
     - Reporting against a game history log and derived statistics is a must.
 
-Authentication is NOT required for this implementation.
+We will exercise as much of the Symfony framework and supporting components like Assetic as we can within the scope of time and the core requirements.
 
+Authentication is NOT required for this implementation.
 
 Theory of Operation
 ===================

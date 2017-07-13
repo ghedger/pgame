@@ -6,6 +6,7 @@
  * Time: 2:27 PM
  */
 // src/AppBundle/Entity/Evaluation.php
+
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -13,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="EvaluationRepository")
  * @ORM\Table(name="evaluation")
+ * @package AppBundle\Entity
  */
 class Evaluation
 {

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: ghedger
+ * Date: 7/12/17
+ * Time: 3:58 PM
+ */
+// src/AppBundle/Entity/GameLogRepository.php
 
 namespace AppBundle\Entity;
 
