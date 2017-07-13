@@ -5,7 +5,6 @@
  * Date: 7/12/17
  * Time: 2:27 PM
  */
-// src/AppBundle/Entity/Evaluation.php
 
 namespace AppBundle\Entity;
 

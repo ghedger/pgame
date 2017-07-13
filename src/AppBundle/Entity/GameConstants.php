@@ -5,7 +5,6 @@
  * Date: 7/12/17
  * Time: 6:46 PM
  */
-// src/AppBundle/Entity/GameConstants.php
 
 namespace AppBundle\Entity;
 

@@ -5,7 +5,6 @@
  * Date: 7/12/17
  * Time: 7:35 PM
  */
-// src/AppBundle/Entity/Sign.php
 
 namespace AppBundle\Entity;
 

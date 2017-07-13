@@ -5,7 +5,6 @@
  * Date: 7/12/17
  * Time: 3:52 PM
  */
-// src/AppBundle/Entity/GameLog.php
 
 namespace AppBundle\Entity;
 
@@ -34,11 +33,22 @@ class GameLog
 
     /**
      * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="Evaluation", inversedBy="vanquished")
+     * @ORM\JoinColumn(name="computer_choice", referencedColumnName="vanquished")
      */
     private $computer_choice;
 
     /**
      * @ORM\Column(type="text")
+     * @ORM\ManyToOne(targetEntity="Evaluation", inversedBy="vanquished")
+     * @ORM\JoinColumn(name="player_choice", referencedColumnName="victor")
+     *
+     * GPH NOTE:
+     * A query like this gives us the number of human player wins:
+     *
+     * select count(*) from gamelog g inner join evaluation e on g.computer_choice = e.vanquished and g.player_choice = e.victor;
+     *
+     * We are going to accomplish this The Doctrine Way.
      */
     private $player_choice;
 

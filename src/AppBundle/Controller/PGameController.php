@@ -5,10 +5,9 @@
  * Date: 7/11/17
  * Time: 7:11 PM
  */
-// src/AppBundle/Controller/PGameController.php
+
 namespace AppBundle\Controller;
 
-// ...
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\GameConstants as GC;
@@ -83,6 +82,10 @@ class PGameController extends Controller
     }
 
     /**
+     * getSigns
+     *
+     * Fetches the associative array of sign ids and names.
+     *
      * @return array
      */
     private function getSigns()
@@ -104,7 +107,7 @@ class PGameController extends Controller
     /**
      * getResultString
      *
-     * This converts the GC::RESULT_* into a string: Win, Loss, Tie
+     * Converts the GC::RESULT_* into a string: Win, Loss, Tie
      *
      * @param integer $result
      * @return string
@@ -129,6 +132,10 @@ class PGameController extends Controller
     }
 
     /**
+     * start
+     *
+     * Serves as primary entry point for the game.
+     *
      * @Route("/pgame")
      */
     public function start()
