@@ -14,6 +14,9 @@ addEventListener("keydown", function (e)
 {
     // Range validation
     if ( KeyEvent.DOM_VK_1 <= e.keyCode && KeyEvent.DOM_VK_5 >= e.keyCode ) {
-        window.location.href = "http://localpgame.com/app_dev.php/pgame/" + (e.keyCode - KeyEvent.DOM_VK_1);
+        // Put the new URL to be the choice: keycode - minimum_possible_keycode.
+        var newUrl = window.location.href;
+        newUrl = newUrl.substr(0, newUrl.lastIndexOf('/')) + '/';
+        window.location.href = newUrl + (e.keyCode - KeyEvent.DOM_VK_1);
     }
 });
