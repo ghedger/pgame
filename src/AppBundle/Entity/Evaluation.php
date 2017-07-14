@@ -42,6 +42,24 @@ class Evaluation
      */
 
     /**
+     * @param mixed $id
+     * @return Evaluation
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * @return mixed
      */
     public function getVictor()
@@ -50,7 +68,7 @@ class Evaluation
     }
 
     /**
-     * @param mixed $victor
+     * @param integer $victor
      * @return Evaluation
      */
     public function setVictor($victor)
@@ -68,7 +86,7 @@ class Evaluation
     }
 
     /**
-     * @param mixed $vanquished
+     * @param integer $vanquished
      * @return Evaluation
      */
     public function setVanquished($vanquished)

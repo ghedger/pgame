@@ -8,13 +8,11 @@
 
 namespace AppBundle\Utils;
 
-use AppBundle\Entity\GameLog;
-use AppBundle\Entity\Evaluation;
-use AppBundle\Entity\Sign;
+use Monolog\Logger;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Doctrine\ORM\Query\ResultSetMapping;
-use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Doctrine\DBAL\Connection;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class Statistics
@@ -33,14 +31,20 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 class Statistics extends Controller
 {
     /**
-     * @param $sql
-     * @return mixed
+     * query
      *
-     * GPH NOTE: As stated above, a native SQL query was not my first choice but a fallback.
+     * Generalized query executor
+     *
+     * @param $sql string
+     * @param $controller Controller
+     * @param $array boolean
+     * @return array
+     *
      */
-    private function query($controller, $sql, $array=0)
+    private function query($controller, $sql, $array=false)
     {
         // Get our primitive mysqli connection
+        /* @var $conn Connection */
         $conn = $controller->getDoctrine()->getManager()->getConnection();
 
         try {
@@ -56,9 +60,11 @@ class Statistics extends Controller
         }
         } catch (Exception $e) {
             // Handle an exception and print a rudimentary error with enough info to get us close to the root.
+            /* @var $logger LoggerInterface */
             $logger = new LoggerInterface();
             $logger->error($e->getFile() . ' ' . $e->getLine() . ' ' . $e->getMessage());
         }
+        /* @var $result array */
         return $result;
     }
 

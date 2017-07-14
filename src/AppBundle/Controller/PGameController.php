@@ -18,6 +18,16 @@ use AppBundle\Utils\Statistics;
 
 /**
  * Class PGameController
+ *
+ * This is pgame's controller class and central "brain".  It is responsible for the following:
+ *
+ *     - Processing user input
+ *     - Generating the computer's choice
+ *     - Evaluating the user's choice against the computer's
+ *     - Generating feedback
+ *     - Pulling and updating statistics
+ *     - Rendering out the new page
+ *
  * @package AppBundle\Controller
  */
 class PGameController extends Controller
@@ -149,8 +159,11 @@ class PGameController extends Controller
     }
 
     /**
+     * getHistory
      *
-     * @return mixed
+     * Returns an array of two arrays, one representing human selection history and the other the computer's.
+     *
+     * @return array
      */
     private function getHistory()
     {
@@ -173,7 +186,12 @@ class PGameController extends Controller
     /**
      * playRound
      *
+     * The {choice} variable comes from the URL via input.js and is the user's choice for this round of the game.
+     * This is the primary function of the game.
+     *
+     * @param integer $choice This is the user choice.  -1 means no choice and signifies need to skip generating feeback.
      * @Route("/pgame/{choice}")
+     * @return mixed
      */
     public function playRound($choice)
     {

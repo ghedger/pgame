@@ -15,7 +15,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="sign")
  * @package AppBundle\Entity
  */
-
 class Sign
 {
     /**
@@ -28,6 +27,11 @@ class Sign
      * @ORM\Column(type="string", length=40)
      */
     private $name;
+
+    /*
+     * GETTERS AND SETTERS
+    */
+
 
     /**
      * @return integer

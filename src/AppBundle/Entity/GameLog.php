@@ -9,7 +9,6 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Query\Expr;
 
 /**
  * @ORM\Entity(repositoryClass="GameLogRepository")
