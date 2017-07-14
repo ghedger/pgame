@@ -14,6 +14,7 @@ use AppBundle\Entity\GameConstants as GC;
 use AppBundle\Entity\GameLog;
 use AppBundle\Entity\Evaluation;
 use AppBundle\Entity\Sign;
+use AppBundle\Utils\Statistics;
 
 /**
  * Class PGameController
@@ -132,6 +133,32 @@ class PGameController extends Controller
     }
 
     /**
+     * getWinLossString
+     *
+     * "WINS-LOSSES-TIES"
+     * For the sake of separation of concerns I elected to keep this here and not place it in the Statistics class.
+     *
+     * @return string
+     */
+    private function getWinLossString()
+    {
+        $stats = new Statistics();
+        return $stats->getHumanWins($this) . '-'
+            . $stats->getComputerWins($this) . '-'
+            . $stats->getTies($this);
+    }
+
+    /**
+     *
+     * @return mixed
+     */
+    private function getHistory()
+    {
+        $stats = new Statistics();
+        return $stats->getHistory($this);
+    }
+
+    /**
      * start
      *
      * Serves as primary entry point for the game.
@@ -144,11 +171,14 @@ class PGameController extends Controller
     }
 
     /**
+     * playRound
+     *
      * @Route("/pgame/{choice}")
      */
     public function playRound($choice)
     {
-        $playerId = 0;          // TODO
+        // TODO: For now, all players share a common ID
+        $playerId = 0;
 
         // Populate the names of the signs ("rock", "paper", etc.) from the ORM
         $signTab = $this->getSigns();
@@ -172,11 +202,17 @@ class PGameController extends Controller
             $winnerString = $this->getResultString($this->evaluateChoices($playerChoice, $computerChoice));
         }
 
+        // Garner our statistics for the view to present
+        $winLossString = $this->getWinLossString();
+        $historyArray = $this->getHistory();
+
         // Render the output page via Twig and exit
         return $this->render('pgame/play.html.twig', array(
             'computerChoice' => $computerChoiceString,
             'playerChoice' => $playerChoiceString,
             'winner' => $winnerString,
+            'winLossTie' => $winLossString,
+            'history' => $historyArray
         ));
     }
 }

@@ -29,7 +29,31 @@
     <h1>
         Statistics
     </h1>
-
+    <h2>
+        Global Summary
+    </h2>
+    <p>
+        {{ winLossTie }}
+    </p>
+    <h2>
+        Detailed Choice History
+    </h2>
+    <div style="width:400px; display:inline-block;">
+        <h3>Human History</h3>
+    <ul>
+            {% for choice, arr in history.human %}
+                <li>{{ arr.choice }}: {{ arr.c }}</li>
+            {% endfor %}
+    </ul>
+    </div>
+    <div style="width:400px; display:inline-block;">
+        <h3>Computer History</h3>
+        <ul>
+            {% for choice, arr in history.computer %}
+                <li>{{ arr.choice }}: {{ arr.c }}</li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
 {% block javascripts %}
     {% javascripts '@AppBundle/Resources/public/js/*' %}
