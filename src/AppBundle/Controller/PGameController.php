@@ -207,7 +207,8 @@ class PGameController extends Controller
         $historyArray = $this->getHistory();
 
         // Render the output page via Twig and exit
-        return $this->render('pgame/play.html.twig', array(
+        return $this->render(
+            'pgame/play.html.twig', array(
             'computerChoice' => $computerChoiceString,
             'playerChoice' => $playerChoiceString,
             'winner' => $winnerString,
