@@ -9,6 +9,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Query\Expr;
 
 /**
  * @ORM\Entity(repositoryClass="GameLogRepository")
@@ -39,8 +40,8 @@ class GameLog
     private $computer_choice;
 
     /**
-     * @ORM\Column(type="text")
-     * @ORM\ManyToOne(targetEntity="Evaluation", inversedBy="vanquished")
+     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="Evaluation", inversedBy="victor")
      * @ORM\JoinColumn(name="player_choice", referencedColumnName="victor")
      *
      * GPH NOTE:
@@ -86,6 +87,7 @@ class GameLog
     /**
      * Sets the computer choice
      * @param $choice
+     * @return GameLog
      */
     public function setComputerChoice($choice)
     {
@@ -105,6 +107,7 @@ class GameLog
     /**
      * Sets the player choice
      * @param $choice
+     * @return GameLog
      */
     public function setPlayerChoice($choice)
     {
@@ -124,6 +127,7 @@ class GameLog
     /**
      * Sets the GameLog entry id
      * @param integer $id
+     * @return GameLog
      */
     public function setId($id)
     {
