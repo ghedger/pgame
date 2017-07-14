@@ -52,6 +52,13 @@ class GameLog
      */
     private $player_choice;
 
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="Evaluation", inversedBy="id")
+     * @ORM\JoinColumn(name="evaluation", referencedColumnName="id")
+     */
+    private $evaluation;
+
     /*
      * GETTERS AND SETTERS
      */
@@ -131,6 +138,26 @@ class GameLog
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * Gets the evaluation association
+     * @return integer
+     */
+    public function getEvaluation()
+    {
+        return $this->evaluation;
+    }
+
+    /**
+     * Sets the evaluation association
+     * @param mixed $evaluation
+     * @return GameLog
+     */
+    public function setEvaluation($evaluation)
+    {
+        $this->evaluation = $evaluation;
         return $this;
     }
 }

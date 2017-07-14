@@ -21,19 +21,18 @@ class Evaluation
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\OneToMany(targetEntity="GameLog", mappedBy="evaluation")
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
-     * @ORM\OneToMany(targetEntity="GameLog", mappedBy="player_choice")
      */
     private $victor;
 
 
     /**
      * @ORM\Column(type="integer")
-     * @ORM\OneToMany(targetEntity="GameLog", mappedBy="computer_choice")
      */
     private $vanquished;
 

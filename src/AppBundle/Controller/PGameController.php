@@ -52,6 +52,22 @@ class PGameController extends Controller
         $gameLog->setPlayer($playerId);
         $gameLog->setComputerChoice($computerChoice);
 
+        // Get the Evaluation Id, or null if a tie
+        /* @var $evaluationResult Evaluation */
+        $evaluationResult = $this->getDoctrine()
+            ->getRepository(Evaluation::class)
+            ->findOneBy(
+                array(
+                    "victor" => $playerChoice,
+                    "vanquished" => $computerChoice
+                )
+            );
+        $evaluationId = null;
+        if($evaluationResult) {
+            $evaluationId = $evaluationResult->getId();
+        }
+        $gameLog->setEvaluation($evaluationId);
+
         // Instantiate the ORM manager
         $doctrineMgr = $this->getDoctrine()->getManager();
 
