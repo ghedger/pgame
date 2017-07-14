@@ -147,6 +147,10 @@ The URLs are not beautified and go through app_dev.php.  It would be good to eli
 
 The app takes only keyboard input from number keys, no keypad and no mobile device support.  It would be nice to have clickable icons.
 
+pgame lacks a way to clear the log from the UI.
+
+There is no authentication; statistics apply to every human user in the whole world.
+
 There are no explicitly prescribed Doctrine results caching.
 
 I spent a considerable amount of time trying to work out how to perform the statistical win-loss query using QueryBuilder (hours spent on this).  That devolved to use of native queries (http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/native-sql.html), still without success.  Finally, I resorted to simple SQL queries which did the trick but are not the Doctrine way of doing things.  I chalk this up to my own lack of experience with this particular framework, and suspect the ORM relationships in Entity/Evaluation.php and Entity/GameLog.php are not set up properly.  I suspect a join table is needed between these, and getting that up and running is the correct way to connect via the ORM.  I will continue to research this.
