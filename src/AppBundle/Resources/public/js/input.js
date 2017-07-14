@@ -2,6 +2,7 @@
 // Some versions of Chrome lack KeyEvent VK_ definitions, so we check that here and accommodate it.
 if (typeof KeyEvent === "undefined") {
     var KeyEvent = {
+        DOM_VK_0: 48,
         DOM_VK_1: 49,
         DOM_VK_2: 50,
         DOM_VK_3: 51,
@@ -25,6 +26,6 @@ addEventListener("keydown", function (e) {
         }
         newUrl += '/';
         // Redirect to the page which will invoke the controller.
-        window.location.href = newUrl + (e.keyCode - KeyEvent.DOM_VK_1);
+        window.location.href = newUrl + (e.keyCode - KeyEvent.DOM_VK_0);
     }
 });

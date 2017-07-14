@@ -64,6 +64,7 @@ class LoadGameData implements FixtureInterface
         // We cannot use key/value pairing because the left side has multiple entries of the same value and is therefore
         // not unique and not a candidate key, so no associative array.
         static $evalTab = [
+            GC::INVALID, GC::INVALID,       // special association signifying any tie
             GC::ROCK, GC::SCISSORS,
             GC::ROCK, GC::LIZARD,
             GC::PAPER, GC::ROCK,

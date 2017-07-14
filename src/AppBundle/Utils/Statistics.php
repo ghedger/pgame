@@ -125,6 +125,9 @@ class Statistics extends Controller
      */
     public function getHistory($controller)
     {
+        
+
+        /*
         $sql = 'select count(*) c, s.name choice from gamelog ' .
             'inner join sign s on computer_choice = s.id group by computer_choice order by computer_choice;';
 
@@ -136,5 +139,6 @@ class Statistics extends Controller
         $humanArray = $this->query($controller, $sql, true);
 
         return ['human' => $humanArray, 'computer' => $computerArray];
+        */
     }
 }

@@ -53,6 +53,13 @@ class PGameController extends Controller
         $gameLog->setComputerChoice($computerChoice);
 
         // Get the Evaluation Id, or null if a tie
+        // Here, if we have a tie, we will mark both choices as the 'invalid' type for evaluation purposes, signifying
+        // a tie.
+        if($computerChoice == $playerChoice) {
+            $playerChoice = GC::INVALID;
+            $computerChoice =  GC::INVALID;
+        }
+
         /* @var $evaluationResult Evaluation */
         $evaluationResult = $this->getDoctrine()
             ->getRepository(Evaluation::class)
@@ -62,10 +69,21 @@ class PGameController extends Controller
                     "vanquished" => $computerChoice
                 )
             );
-        $evaluationId = null;
-        if($evaluationResult) {
-            $evaluationId = $evaluationResult->getId();
+
+        // If we didn't get a result, reverse the choices
+        if(!$evaluationResult) {
+            $evaluationResult = $this->getDoctrine()
+                ->getRepository(Evaluation::class)
+                ->findOneBy(
+                    array(
+                        "victor" => $computerChoice,
+                        "vanquished" => $playerChoice
+                    )
+                );
         }
+
+        // There WILL be an evaluation
+        $evaluationId = $evaluationResult->getId();
         $gameLog->setEvaluation($evaluationId);
 
         // Instantiate the ORM manager
@@ -220,13 +238,15 @@ class PGameController extends Controller
         $playerChoiceString = $computerChoiceString = $winnerString = '';
 
         // On the first round, there will be no choice and start() will pass in a -1.
-        if ($choice >= 0 && $choice < count($signTab)) {
+        // Get the maximum sign ID
+        $max = count($signTab);
+        if ($choice >= GC::MINCHOICE && $choice < $max) {
             $playerChoice = $choice;
 
             $playerChoiceString = $signTab[$choice];
 
             // TODO: Seed the pseudorandom number generator.
-            $computerChoice = mt_rand(0, 4);
+            $computerChoice = mt_rand(GC::MINCHOICE, $max - 1);
             $computerChoiceString = $signTab[$computerChoice];
 
             // Create a record of this game
