@@ -37,11 +37,10 @@ class PGameController extends Controller
      *
      * Creates a GameLog entry of what the player chose and what the computer chose for statistical tracking purposes.
      *
-     * @param integer $playerId
      * @param integer $playerChoice
      * @param integer $computerChoice
      */
-    private function createLogEntry($playerId, $playerChoice, $computerChoice)
+    private function createLogEntry($playerChoice, $computerChoice)
     {
         // Create a GameLog entity via the ORM
         $gameLog = new GameLog();
@@ -49,7 +48,6 @@ class PGameController extends Controller
         // Set the data in the new GameLog.
         // The results will be derived separately, thus we do not include an explicit win/loss field.
         $gameLog->setPlayerChoice($playerChoice);
-        $gameLog->setPlayer($playerId);
         $gameLog->setComputerChoice($computerChoice);
 
         // Get the Evaluation Id, or null if a tie
@@ -84,7 +82,7 @@ class PGameController extends Controller
 
         // There WILL be an evaluation
         $evaluationId = $evaluationResult->getId();
-        $gameLog->setEvaluation($evaluationId);
+        $gameLog->setEvaluationId($evaluationId);
 
         // Instantiate the ORM manager
         $doctrineMgr = $this->getDoctrine()->getManager();
@@ -229,9 +227,6 @@ class PGameController extends Controller
      */
     public function playRound($choice)
     {
-        // TODO: For now, all players share a common ID
-        $playerId = 0;
-
         // Populate the names of the signs ("rock", "paper", etc.) from the ORM
         $signTab = $this->getSigns();
 
@@ -250,7 +245,7 @@ class PGameController extends Controller
             $computerChoiceString = $signTab[$computerChoice];
 
             // Create a record of this game
-            $this->createLogEntry($playerId, $playerChoice, $computerChoice);
+            $this->createLogEntry($playerChoice, $computerChoice);
 
             // Determine who won
             $winnerString = $this->getResultString($this->evaluateChoices($playerChoice, $computerChoice));

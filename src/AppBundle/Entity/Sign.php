@@ -11,7 +11,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="SignRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\SignRepository")
  * @ORM\Table(name="sign")
  * @package AppBundle\Entity
  */
