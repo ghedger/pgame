@@ -6,7 +6,7 @@
  * Time: 2:27 PM
  */
 
-namespace AppBundle\Entity;
+namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
