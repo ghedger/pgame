@@ -11,7 +11,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="EvaluationRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\EvaluationRepository")
  * @ORM\Table(name="evaluation")
  * @package AppBundle\Entity
  */
