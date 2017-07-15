@@ -114,6 +114,8 @@ class PGameController extends Controller
                 )
             );
 
+        // If there is no eval record for player as victor and computer as vanquished AND there's no tie,
+        // it's a loss for the player.
         if (!$eval) {
             if ($computerChoice != $playerChoice) {
                 return GC::RESULT_LOSS;
