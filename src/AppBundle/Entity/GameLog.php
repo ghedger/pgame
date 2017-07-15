@@ -20,109 +20,40 @@ use Doctrine\ORM\Mapping as ORM;
 class GameLog
 {
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="player_choice", type="integer")
      */
-    private $player;
+    private $playerChoice;
 
     /**
-     * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="Evaluation", inversedBy="vanquished")
-     * @ORM\JoinColumn(name="computer_choice", referencedColumnName="vanquished")
+     * @var int
+     *
+     * @ORM\Column(name="computer_choice", type="integer")
      */
-    private $computer_choice;
+    private $computerChoice;
 
     /**
-     * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="Evaluation", inversedBy="victor")
-     * @ORM\JoinColumn(name="player_choice", referencedColumnName="victor")
+     * @var int
      *
-     * GPH NOTE:
-     * A query like this gives us the number of human player wins:
-     *
-     * select count(*) from gamelog g inner join evaluation e on g.computer_choice = e.vanquished and g.player_choice = e.victor;
-     *
-     * We are going to accomplish this The Doctrine Way.
-     */
-    private $player_choice;
-
-    /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(name="evaluation_id", type="integer")
      * @ORM\ManyToOne(targetEntity="Evaluation", inversedBy="id")
-     * @ORM\JoinColumn(name="evaluation", referencedColumnName="id")
+     * @ORM\JoinColumn(name="evaluation_id", referencedColumnName="id")
      */
-    private $evaluation;
-
-    /*
-     * GETTERS AND SETTERS
-     */
+    private $evaluationId;
 
     /**
-     * Gets the player id
-     * @return $player
-     */
-    public function getPlayer()
-    {
-        return $this->player;
-    }
-
-    /**
-     * Sets the player id
-     * @param $player
-     */
-    public function setPlayer($player)
-    {
-        $this->player = $player;
-    }
-
-    /**
-     * Gets the computer choice
-     * @return $choice
-     */
-    public function getComputerChoice()
-    {
-        return $this->computer_choice;
-    }
-
-    /**
-     * Sets the computer choice
-     * @param $choice
-     * @return GameLog
-     */
-    public function setComputerChoice($choice)
-    {
-        $this->computer_choice = $choice;
-        return $this;
-    }
-
-    /**
-     * Gets the player choice
-     * @return $choice
-     */
-    public function getPlayerChoice()
-    {
-        return $this->player_choice;
-    }
-
-    /**
-     * Sets the player choice
-     * @param $choice
-     * @return GameLog
-     */
-    public function setPlayerChoice($choice)
-    {
-        $this->player_choice = $choice;
-        return $this;
-    }
-
-    /**
-     * Gets the GameLog entry id
+     * Get id
+     *
      * @return integer
      */
     public function getId()
@@ -131,33 +62,71 @@ class GameLog
     }
 
     /**
-     * Sets the GameLog entry id
-     * @param integer $id
+     * Set playerChoice
+     *
+     * @param integer $playerChoice
      * @return GameLog
      */
-    public function setId($id)
+    public function setPlayerChoice($playerChoice)
     {
-        $this->id = $id;
+        $this->playerChoice = $playerChoice;
+
         return $this;
     }
 
     /**
-     * Gets the evaluation association
+     * Get playerChoice
+     *
      * @return integer
      */
-    public function getEvaluation()
+    public function getPlayerChoice()
     {
-        return $this->evaluation;
+        return $this->playerChoice;
     }
 
     /**
-     * Sets the evaluation association
-     * @param mixed $evaluation
+     * Set computerChoice
+     *
+     * @param integer $computerChoice
      * @return GameLog
      */
-    public function setEvaluation($evaluation)
+    public function setComputerChoice($computerChoice)
     {
-        $this->evaluation = $evaluation;
+        $this->computerChoice = $computerChoice;
+
         return $this;
+    }
+
+    /**
+     * Get computerChoice
+     *
+     * @return integer
+     */
+    public function getComputerChoice()
+    {
+        return $this->computerChoice;
+    }
+
+    /**
+     * Set evaluationId
+     *
+     * @param integer $evaluationId
+     * @return GameLog
+     */
+    public function setEvaluationId($evaluationId)
+    {
+        $this->evaluationId = $evaluationId;
+
+        return $this;
+    }
+
+    /**
+     * Get evaluationId
+     *
+     * @return integer
+     */
+    public function getEvaluationId()
+    {
+        return $this->evaluationId;
     }
 }
